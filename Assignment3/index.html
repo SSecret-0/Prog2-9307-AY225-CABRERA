@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prelim Lab Work 3</title>
+</head>
+<body>
+<script>
+    // Input
+    let attendance = parseFloat(prompt("Enter Attendance score (0-100):"));
+    let lab1 = parseFloat(prompt("Enter Lab Work 1 grade:"));
+    let lab2 = parseFloat(prompt("Enter Lab Work 2 grade:"));
+    let lab3 = parseFloat(prompt("Enter Lab Work 3 grade:"));
+
+    // Computation
+    let labAverage = (lab1 + lab2 + lab3) / 3;
+    let classStanding = (attendance * 0.4) + (labAverage * 0.6);
+
+    let requiredToPass = (75 - (classStanding * 0.3)) / 0.7;
+    let requiredExcellent = (100 - (classStanding * 0.3)) / 0.7;
+
+    // Output
+    let result = `
+=== Computed Results ===
+Attendance Score: ${attendance.toFixed(2)}
+Lab Work Average: ${labAverage.toFixed(2)}
+Class Standing: ${classStanding.toFixed(2)}
+Required Prelim Exam Score to Pass (75): ${requiredToPass.toFixed(2)}
+Required Prelim Exam Score to Achieve Excellent (100): ${requiredExcellent.toFixed(2)}
+`;
+
+    // Remarks
+    if (requiredToPass <= 0) {
+        result += "Remark: You already secured passing grade.";
+    } else if (requiredToPass <= 100) {
+        result += "Remark: Passing is achievable with Prelim Exam.";
+    } else {
+        result += "Remark: Passing requires more than 100, check class standing.";
+    }
+
+    alert(result);
+</script>
+</body>
+</html>
