@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Records</title>
+    <link rel="stylesheet" href="jsPrelim.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+        th { background-color: #555; color: white; }
+        input { width: 100px; margin: 2px; padding: 3px; }
+        button { padding: 5px 10px; margin: 2px; }
+        .input-row { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+        h1, footer { text-align: center; }
+    </style>
+</head>
+<body>
+
+<h1>Student Records - Theodore Kelly Cabrera 25-2422-239</h1>
+
+<div class="input-row">
+    <input id="id" placeholder="ID">
+    <input id="first" placeholder="First Name">
+    <input id="last" placeholder="Last Name">
+    <input id="lab1" placeholder="Lab 1">
+    <input id="lab2" placeholder="Lab 2">
+    <input id="lab3" placeholder="Lab 3">
+    <input id="prelim" placeholder="Prelim">
+    <input id="attendance" placeholder="Attendance">
+    <button onclick="addRecord()">Add</button>
+</div>
+
+<table id="recordTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Lab 1</th>
+            <th>Lab 2</th>
+            <th>Lab 3</th>
+            <th>Prelim Exam</th>
+            <th>Attendance</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<footer>
+    Programmer: Theodore Kelly Cabrera | Student ID : 25-2422-239
+</footer>
+
+<script src="jsPrelim.js"></script>
+</body>
+</html>
