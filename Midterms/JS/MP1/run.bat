@@ -1,0 +1,9 @@
+@echo off
+echo Running Program...
+node index.js
+echo.
+echo Press X then Enter to close...
+:waitForX
+set /p userInput=
+if /i not "%userInput%"=="X" goto waitForX
+echo Closing Program...
