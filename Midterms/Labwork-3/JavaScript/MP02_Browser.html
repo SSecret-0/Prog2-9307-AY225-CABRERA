@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MP02 - Display First 10 Rows</title>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+    text-align: left;
+}
+
+th {
+    background-color: #eee;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>MP02 – Display First 10 Rows</h2>
+
+<input type="file" id="fileInput">
+<button onclick="loadCSV()">Load Dataset</button>
+
+<br><br>
+
+<table id="dataTable">
+<thead></thead>
+<tbody></tbody>
+</table>
+
+<script>
+
+function loadCSV() {
+
+    const file = document.getElementById("fileInput").files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        const text = e.target.result;
+        const rows = text.split("\n");
+
+        let headerFound = false;
+        let rowCount = 0;
+
+        const tableHead = document.querySelector("#dataTable thead");
+        const tableBody = document.querySelector("#dataTable tbody");
+
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = "";
+
+        for (let row of rows) {
+
+            if (!headerFound) {
+
+                if (row.includes("Candidate") && row.includes("Exam")) {
+
+                    headerFound = true;
+
+                    const headers = row.split(",");
+
+                    let headerHTML = "<tr>";
+
+                    for (let h of headers) {
+                        headerHTML += "<th>" + h.replace(/"/g,"") + "</th>";
+                    }
+
+                    headerHTML += "</tr>";
+
+                    tableHead.innerHTML = headerHTML;
+
+                }
+
+                continue;
+            }
+
+            if (rowCount >= 10)
+                break;
+
+            if (row.trim() !== "") {
+
+                const cols = row.split(",");
+
+                let rowHTML = "<tr>";
+
+                for (let col of cols) {
+                    rowHTML += "<td>" + col.replace(/"/g,"") + "</td>";
+                }
+
+                rowHTML += "</tr>";
+
+                tableBody.innerHTML += rowHTML;
+
+                rowCount++;
+
+            }
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+</script>
+
+</body>
+</html>

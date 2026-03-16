@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MP03 - Search Dataset</title>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+}
+
+th {
+    background-color: #eee;
+}
+</style>
+</head>
+
+<body>
+
+<h2>MP03 – Search Dataset</h2>
+
+<input type="file" id="fileInput">
+<input type="text" id="keyword" placeholder="Enter keyword">
+
+<button onclick="searchData()">Search</button>
+
+<br><br>
+
+<table id="dataTable">
+<thead></thead>
+<tbody></tbody>
+</table>
+
+<script>
+
+function searchData() {
+
+    const file = document.getElementById("fileInput").files[0];
+    const keyword = document.getElementById("keyword").value.toLowerCase();
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        const text = e.target.result;
+        const rows = text.split("\n");
+
+        let headerFound = false;
+
+        const head = document.querySelector("#dataTable thead");
+        const body = document.querySelector("#dataTable tbody");
+
+        head.innerHTML = "";
+        body.innerHTML = "";
+
+        for (let row of rows) {
+
+            if (!headerFound) {
+
+                if (row.includes("Candidate") && row.includes("Exam")) {
+
+                    headerFound = true;
+
+                    let headers = row.split(",");
+                    let html = "<tr>";
+
+                    for (let h of headers) {
+                        html += "<th>" + h.replace(/"/g,"") + "</th>";
+                    }
+
+                    html += "</tr>";
+
+                    head.innerHTML = html;
+                }
+
+                continue;
+            }
+
+            if (row.toLowerCase().includes(keyword)) {
+
+                let cols = row.split(",");
+                let html = "<tr>";
+
+                for (let col of cols) {
+                    html += "<td>" + col.replace(/"/g,"") + "</td>";
+                }
+
+                html += "</tr>";
+
+                body.innerHTML += html;
+            }
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MP04 - Count Valid Rows</title>
+
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+}
+
+th {
+    background-color: #eee;
+}
+</style>
+</head>
+
+<body>
+
+<h2>MP04 – Count Valid Rows</h2>
+
+<input type="file" id="fileInput">
+<button onclick="countRows()">Process Dataset</button>
+
+<p id="result"></p>
+
+<table id="dataTable">
+<thead></thead>
+<tbody></tbody>
+</table>
+
+<script>
+
+function countRows() {
+
+    const file = document.getElementById("fileInput").files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        const text = e.target.result;
+        const rows = text.split("\n");
+
+        let headerFound = false;
+        let validRows = 0;
+
+        const head = document.querySelector("#dataTable thead");
+        const body = document.querySelector("#dataTable tbody");
+
+        head.innerHTML = "";
+        body.innerHTML = "";
+
+        for (let row of rows) {
+
+            if (!headerFound) {
+
+                if (row.includes("Candidate") && row.includes("Exam")) {
+
+                    headerFound = true;
+
+                    let headers = row.split(",");
+                    let html = "<tr>";
+
+                    for (let h of headers) {
+                        html += "<th>" + h.replace(/"/g,"") + "</th>";
+                    }
+
+                    html += "</tr>";
+
+                    head.innerHTML = html;
+                }
+
+                continue;
+            }
+
+            if (row.trim() !== "") {
+
+                validRows++;
+
+                let cols = row.split(",");
+                let html = "<tr>";
+
+                for (let col of cols) {
+                    html += "<td>" + col.replace(/"/g,"") + "</td>";
+                }
+
+                html += "</tr>";
+
+                body.innerHTML += html;
+            }
+        }
+
+        document.getElementById("result").textContent =
+            "Valid Rows: " + validRows;
+
+    };
+
+    reader.readAsText(file);
+}
+
+</script>
+
+</body>
+</html>
